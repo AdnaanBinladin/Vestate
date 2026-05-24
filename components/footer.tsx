@@ -1,80 +1,84 @@
-import Link from "next/link"
-import { MapPin, Phone, Mail, Instagram, Facebook, Linkedin, Youtube } from "lucide-react"
+'use client'
+
+import Link from 'next/link'
+import { motion } from 'framer-motion'
+import { MapPin, Phone, Mail, ArrowUp } from 'lucide-react'
 
 const footerLinks = {
-  properties: [
-    { label: "All Lands", href: "/lands" },
-    { label: "Featured Properties", href: "/lands?featured=true" },
-    { label: "New Listings", href: "/lands?new=true" },
-    { label: "Investment Opportunities", href: "/investment" },
+  explore: [
+    { label: 'Land Portfolio', href: '/lands' },
+    { label: 'Featured Properties', href: '/lands?featured=true' },
+    { label: 'Investment Guide', href: '/investment' },
+    { label: 'Market Insights', href: '/blog' },
   ],
   company: [
-    { label: "About Us", href: "/about" },
-    { label: "Our Team", href: "/about#team" },
-    { label: "Careers", href: "/careers" },
-    { label: "Press", href: "/press" },
+    { label: 'About Us', href: '/about' },
+    { label: 'Our Team', href: '/about#team' },
+    { label: 'Careers', href: '/careers' },
+    { label: 'Press', href: '/press' },
   ],
-  resources: [
-    { label: "Blog & Insights", href: "/blog" },
-    { label: "Investment Guide", href: "/guide" },
-    { label: "FAQ", href: "/faq" },
-    { label: "Privacy Policy", href: "/privacy" },
+  support: [
+    { label: 'Contact Us', href: '/contact' },
+    { label: 'FAQs', href: '/faqs' },
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Terms of Service', href: '/terms' },
   ],
 }
 
-const socialLinks = [
-  { icon: Instagram, href: "#", label: "Instagram" },
-  { icon: Facebook, href: "#", label: "Facebook" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Youtube, href: "#", label: "YouTube" },
-]
-
 export function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
   return (
-    <footer className="bg-charcoal border-t border-border">
+    <footer className="bg-card border-t border-border">
       {/* Main Footer */}
-      <div className="container mx-auto px-6 lg:px-12 py-16 lg:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 border-2 border-accent flex items-center justify-center">
-                <span className="text-accent font-serif text-2xl font-bold">V</span>
-              </div>
-              <div>
-                <span className="text-foreground font-serif text-2xl tracking-wider">VERSATE</span>
-                <span className="block text-xs text-muted-foreground tracking-[0.3em] uppercase">Properties</span>
-              </div>
+            <Link href="/" className="inline-block mb-6">
+              <span className="text-3xl font-serif tracking-wider text-foreground">
+                VERSATE
+              </span>
             </Link>
-            <p className="text-muted-foreground leading-relaxed mb-6 max-w-sm">
-              Discover exclusive luxury land investment opportunities in Mauritius. 
-              Your gateway to premium plots and gated developments.
+            <p className="text-muted-foreground leading-relaxed mb-8 max-w-md">
+              Your premier destination for luxury land investment in Mauritius. 
+              Discover exceptional plots in the world&apos;s most prestigious locations.
             </p>
-            <div className="space-y-3 text-sm">
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <MapPin className="w-4 h-4 text-accent" />
-                <span>Grand Baie, Mauritius</span>
-              </div>
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <Phone className="w-4 h-4 text-accent" />
-                <span>+230 123 4567</span>
-              </div>
-              <div className="flex items-center gap-3 text-muted-foreground">
-                <Mail className="w-4 h-4 text-accent" />
+            <div className="flex flex-col gap-4">
+              <a
+                href="tel:+2305555555"
+                className="flex items-center gap-3 text-foreground/80 hover:text-gold transition-colors"
+              >
+                <Phone className="w-5 h-5 text-gold" />
+                <span>+230 555 5555</span>
+              </a>
+              <a
+                href="mailto:contact@versate.mu"
+                className="flex items-center gap-3 text-foreground/80 hover:text-gold transition-colors"
+              >
+                <Mail className="w-5 h-5 text-gold" />
                 <span>contact@versate.mu</span>
+              </a>
+              <div className="flex items-start gap-3 text-foreground/80">
+                <MapPin className="w-5 h-5 text-gold flex-shrink-0 mt-1" />
+                <span>Royal Road, Grand Baie<br />Mauritius</span>
               </div>
             </div>
           </div>
 
-          {/* Properties */}
+          {/* Links Columns */}
           <div>
-            <h4 className="font-serif text-lg mb-6 text-foreground">Properties</h4>
-            <ul className="space-y-3">
-              {footerLinks.properties.map((link) => (
+            <h4 className="text-sm font-medium tracking-wider uppercase text-foreground mb-6">
+              Explore
+            </h4>
+            <ul className="space-y-4">
+              {footerLinks.explore.map((link) => (
                 <li key={link.href}>
-                  <Link 
+                  <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                    className="text-muted-foreground hover:text-gold transition-colors duration-300"
                   >
                     {link.label}
                   </Link>
@@ -83,15 +87,16 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Company */}
           <div>
-            <h4 className="font-serif text-lg mb-6 text-foreground">Company</h4>
-            <ul className="space-y-3">
+            <h4 className="text-sm font-medium tracking-wider uppercase text-foreground mb-6">
+              Company
+            </h4>
+            <ul className="space-y-4">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
-                  <Link 
+                  <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                    className="text-muted-foreground hover:text-gold transition-colors duration-300"
                   >
                     {link.label}
                   </Link>
@@ -100,15 +105,16 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Resources */}
           <div>
-            <h4 className="font-serif text-lg mb-6 text-foreground">Resources</h4>
-            <ul className="space-y-3">
-              {footerLinks.resources.map((link) => (
+            <h4 className="text-sm font-medium tracking-wider uppercase text-foreground mb-6">
+              Support
+            </h4>
+            <ul className="space-y-4">
+              {footerLinks.support.map((link) => (
                 <li key={link.href}>
-                  <Link 
+                  <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                    className="text-muted-foreground hover:text-gold transition-colors duration-300"
                   >
                     {link.label}
                   </Link>
@@ -121,23 +127,19 @@ export function Footer() {
 
       {/* Bottom Bar */}
       <div className="border-t border-border">
-        <div className="container mx-auto px-6 lg:px-12 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
-              {new Date().getFullYear()} Versate Properties. All rights reserved.
+              &copy; {new Date().getFullYear()} Versate Properties. All rights reserved.
             </p>
-            <div className="flex items-center gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  className="p-2 text-muted-foreground hover:text-accent transition-colors"
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-5 h-5" />
-                </a>
-              ))}
-            </div>
+            <motion.button
+              whileHover={{ y: -2 }}
+              onClick={scrollToTop}
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-gold transition-colors"
+            >
+              <span>Back to top</span>
+              <ArrowUp className="w-4 h-4" />
+            </motion.button>
           </div>
         </div>
       </div>

@@ -1,23 +1,26 @@
-import { Navbar } from "@/components/navbar"
-import { HeroSection } from "@/components/hero-section"
-import { FeaturedLands } from "@/components/featured-lands"
-import { StatsSection } from "@/components/stats-section"
-import { InvestmentSection } from "@/components/investment-section"
-import { LifestyleSection } from "@/components/lifestyle-section"
-import { TestimonialsSection } from "@/components/testimonials-section"
-import { CTASection } from "@/components/cta-section"
-import { Footer } from "@/components/footer"
+import { Navbar } from '@/components/navbar'
+import { Footer } from '@/components/footer'
+import { HeroSection } from '@/components/home/hero-section'
+import { SearchSection } from '@/components/home/search-section'
+import { FeaturedLands } from '@/components/home/featured-lands'
+import { StatsSection } from '@/components/home/stats-section'
+import { InvestmentSection } from '@/components/home/investment-section'
+import { LifestyleSection } from '@/components/home/lifestyle-section'
+import { TestimonialsSection } from '@/components/home/testimonials-section'
+import { CTASection } from '@/components/home/cta-section'
+import { lands, stats, testimonials } from '@/lib/data'
 
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-background">
-      <Navbar variant="transparent" />
+      <Navbar />
       <HeroSection />
-      <FeaturedLands />
-      <StatsSection />
+      <SearchSection />
+      <FeaturedLands lands={lands} />
+      <StatsSection stats={stats} />
       <InvestmentSection />
       <LifestyleSection />
-      <TestimonialsSection />
+      <TestimonialsSection testimonials={testimonials} />
       <CTASection />
       <Footer />
     </main>

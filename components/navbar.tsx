@@ -1,25 +1,21 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Heart, Search, ChevronDown } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X, Heart, Search, ChevronDown } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/lands", label: "Land Listings" },
-  { href: "/investment", label: "Investment" },
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Insights" },
-  { href: "/contact", label: "Contact" },
+  { href: '/', label: 'Home' },
+  { href: '/lands', label: 'Land Portfolio' },
+  { href: '/investment', label: 'Investment' },
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Insights' },
+  { href: '/contact', label: 'Contact' },
 ]
 
-interface NavbarProps {
-  variant?: "transparent" | "solid"
-}
-
-export function Navbar({ variant = "transparent" }: NavbarProps) {
+export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -27,145 +23,141 @@ export function Navbar({ variant = "transparent" }: NavbarProps) {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
     }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
-
-  const showSolid = variant === "solid" || isScrolled
 
   return (
     <>
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          showSolid
-            ? "bg-background/95 backdrop-blur-md border-b border-border"
-            : "bg-transparent"
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
+          isScrolled
+            ? 'bg-background/95 backdrop-blur-md border-b border-border/50'
+            : 'bg-transparent'
         )}
       >
-        <nav className="container mx-auto px-6 lg:px-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3">
-              <div className="relative">
-                <div className="w-10 h-10 lg:w-12 lg:h-12 border-2 border-accent flex items-center justify-center">
-                  <span className="text-accent font-serif text-xl lg:text-2xl font-bold">V</span>
-                </div>
-              </div>
-              <div className="hidden sm:block">
-                <span className="text-foreground font-serif text-xl lg:text-2xl tracking-wider">VERSATE</span>
-                <span className="block text-[10px] lg:text-xs text-muted-foreground tracking-[0.3em] uppercase">Properties</span>
-              </div>
+            <Link href="/" className="flex items-center gap-2">
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                className="flex items-center"
+              >
+                <span className="text-2xl lg:text-3xl font-serif tracking-wider text-foreground">
+                  VERSATE
+                </span>
+                <span className="ml-2 text-xs tracking-[0.3em] text-gold uppercase hidden sm:block">
+                  Properties
+                </span>
+              </motion.div>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-8 xl:gap-12">
+            <nav className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative text-sm tracking-wide text-foreground/90 hover:text-accent transition-colors duration-300 group"
+                  className="text-sm tracking-wider uppercase text-foreground/80 hover:text-gold transition-colors duration-300"
                 >
                   {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-accent transition-all duration-300 group-hover:w-full" />
                 </Link>
               ))}
-            </div>
+            </nav>
 
             {/* Right Actions */}
-            <div className="flex items-center gap-4 lg:gap-6">
-              <button 
-                className="p-2 text-foreground/80 hover:text-accent transition-colors"
-                aria-label="Search"
-              >
-                <Search className="w-5 h-5" />
-              </button>
-              <Link 
+            <div className="flex items-center gap-4">
+              <Link
                 href="/favorites"
-                className="p-2 text-foreground/80 hover:text-accent transition-colors"
-                aria-label="Favorites"
+                className="p-2 hover:text-gold transition-colors duration-300"
               >
                 <Heart className="w-5 h-5" />
+              </Link>
+              <Link
+                href="/lands"
+                className="p-2 hover:text-gold transition-colors duration-300 hidden sm:block"
+              >
+                <Search className="w-5 h-5" />
               </Link>
               
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(true)}
-                className="lg:hidden p-2 text-foreground"
-                aria-label="Open menu"
+                className="lg:hidden p-2 hover:text-gold transition-colors duration-300"
               >
                 <Menu className="w-6 h-6" />
               </button>
             </div>
           </div>
-        </nav>
+        </div>
       </motion.header>
 
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 lg:hidden"
+          >
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 lg:hidden"
+              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <motion.div
-              initial={{ x: "100%" }}
+              initial={{ x: '100%' }}
               animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ type: "tween", duration: 0.4 }}
-              className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-background z-50 lg:hidden"
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-background border-l border-border"
             >
-              <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between p-6 border-b border-border">
-                  <span className="font-serif text-xl tracking-wider">Menu</span>
-                  <button
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-2 text-foreground"
-                    aria-label="Close menu"
+              <div className="flex items-center justify-between p-6 border-b border-border">
+                <span className="text-xl font-serif tracking-wider">Menu</span>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="p-2 hover:text-gold transition-colors duration-300"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              <nav className="p-6 flex flex-col gap-6">
+                {navLinks.map((link, index) => (
+                  <motion.div
+                    key={link.href}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
                   >
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-                <nav className="flex-1 overflow-y-auto p-6">
-                  <ul className="space-y-1">
-                    {navLinks.map((link, index) => (
-                      <motion.li
-                        key={link.href}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                      >
-                        <Link
-                          href={link.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className="block py-4 text-lg font-light tracking-wide text-foreground hover:text-accent transition-colors border-b border-border/50"
-                        >
-                          {link.label}
-                        </Link>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </nav>
-                <div className="p-6 border-t border-border">
-                  <Link
-                    href="/contact"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block w-full py-4 text-center bg-accent text-accent-foreground font-medium tracking-wide hover:bg-accent/90 transition-colors"
-                  >
-                    Schedule Consultation
-                  </Link>
-                </div>
+                    <Link
+                      href={link.href}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="text-lg tracking-wider uppercase text-foreground/80 hover:text-gold transition-colors duration-300"
+                    >
+                      {link.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+              <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-border">
+                <Link
+                  href="/contact"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block w-full py-4 text-center bg-gold text-background font-medium tracking-wider uppercase hover:bg-gold-light transition-colors duration-300"
+                >
+                  Schedule Consultation
+                </Link>
               </div>
             </motion.div>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

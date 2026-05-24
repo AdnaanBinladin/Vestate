@@ -4,34 +4,33 @@ import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const inter = Inter({ 
-  subsets: ["latin"],
+  subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
 })
 
 const playfair = Playfair_Display({ 
-  subsets: ["latin"],
+  subsets: ['latin'],
   variable: '--font-playfair',
   display: 'swap',
 })
 
 export const metadata: Metadata = {
-  title: 'Versate | Luxury Land Investments in Mauritius',
-  description: 'Discover exclusive luxury land investment opportunities in Mauritius. Premium plots, gated developments, and high-end real estate for discerning investors.',
-  keywords: 'luxury land, Mauritius real estate, land investment, premium plots, gated developments, exclusive properties',
-  authors: [{ name: 'Versate Properties' }],
+  title: 'Versate | Premium Luxury Land Investment in Mauritius',
+  description: 'Discover exclusive luxury land investment opportunities in Mauritius. Premium plots, gated developments, and high-end investment properties.',
+  keywords: ['luxury land', 'investment', 'Mauritius', 'premium plots', 'real estate', 'gated developments'],
+  authors: [{ name: 'Versate' }],
   openGraph: {
-    title: 'Versate | Luxury Land Investments in Mauritius',
+    title: 'Versate | Premium Luxury Land Investment',
     description: 'Discover exclusive luxury land investment opportunities in Mauritius.',
     type: 'website',
-    locale: 'en_US',
   },
 }
 
 export const viewport: Viewport = {
+  themeColor: '#0d0d0d',
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#0a0a0a',
 }
 
 export default function RootLayout({
