@@ -1,16 +1,28 @@
-export default function Home() {
+import { Navbar } from '@/components/navbar'
+import { Footer } from '@/components/footer'
+import { HeroSection } from '@/components/home/hero-section'
+import { SearchSection } from '@/components/home/search-section'
+import { FeaturedLands } from '@/components/home/featured-lands'
+import { StatsSection } from '@/components/home/stats-section'
+import { InvestmentSection } from '@/components/home/investment-section'
+import { LifestyleSection } from '@/components/home/lifestyle-section'
+import { TestimonialsSection } from '@/components/home/testimonials-section'
+import { CTASection } from '@/components/home/cta-section'
+import { lands, stats, testimonials } from '@/lib/data'
+
+export default function HomePage() {
   return (
-    <div className="flex min-h-screen items-center justify-center font-sans">
-      <main className="flex w-full max-w-3xl flex-col items-center gap-8 px-6 py-16 text-center sm:items-start sm:text-left">
-        <div className="flex flex-col gap-4">
-          <h1 className="text-4xl font-bold tracking-tight">
-            versate
-          </h1>
-          <p className="max-w-md text-lg text-muted-foreground">
-            To get started, send a prompt or modify this page directly.
-          </p>
-        </div>
-      </main>
-    </div>
-  );
+    <main className="min-h-screen bg-background">
+      <Navbar />
+      <HeroSection />
+      <SearchSection />
+      <FeaturedLands lands={lands} />
+      <StatsSection stats={stats} />
+      <InvestmentSection />
+      <LifestyleSection />
+      <TestimonialsSection testimonials={testimonials} />
+      <CTASection />
+      <Footer />
+    </main>
+  )
 }
