@@ -1,21 +1,87 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Heart, Search, ChevronDown } from 'lucide-react'
+import { Menu, X, Heart, Search } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 import { cn } from '@/lib/utils'
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/lands', label: 'Land Portfolio' },
-  { href: '/investment', label: 'Investment' },
-  { href: '/about', label: 'About' },
-  { href: '/blog', label: 'Insights' },
-  { href: '/contact', label: 'Contact' },
-]
+  { href: '/', labelKey: 'nav.home' },
+  { href: '/lands', labelKey: 'nav.portfolio' },
+  { href: '/about', labelKey: 'nav.about' },
+  { href: '/blog', labelKey: 'nav.insights' },
+  { href: '/contact', labelKey: 'nav.contact' },
+] as const
+
+function FlagIcon({ language }: { language: 'en' | 'fr' }) {
+  const flag =
+    language === 'fr'
+      ? { src: '/flags/france.png', alt: 'French flag' }
+      : { src: '/flags/united-kingdom.png', alt: 'British flag' }
+
+  return (
+    <Image
+      src={flag.src}
+      alt={flag.alt}
+      width={24}
+      height={16}
+      className="h-4 w-6 border border-white/20 object-cover shadow-sm"
+    />
+  )
+}
+
+function LanguageFlagToggle() {
+  const { language, setLanguage, t } = useLanguage()
+  const targetLanguage = language === 'en' ? 'fr' : 'en'
+
+  return (
+    <button
+      type="button"
+      aria-label={t('language.switch')}
+      title={t('language.switch')}
+      onClick={() => setLanguage(targetLanguage)}
+      className="flex h-8 items-center justify-center border border-transparent px-1.5 transition-colors hover:border-gold/70 focus:border-gold focus:outline-none"
+    >
+      <FlagIcon language={targetLanguage} />
+    </button>
+  )
+}
+
+function CurrencySelect() {
+  const { currency, currencyOptions, setCurrency, t } = useLanguage()
+
+  return (
+    <div className="relative">
+      <select
+        aria-label={t('currency.switch')}
+        value={currency}
+        onChange={(event) => setCurrency(event.target.value as typeof currency)}
+        className="h-8 border border-transparent bg-transparent pl-0 pr-1 text-xs font-semibold uppercase tracking-wider text-foreground outline-none transition-colors hover:text-gold focus:border-gold"
+      >
+        {currencyOptions.map((option) => (
+          <option key={option} value={option} className="bg-background text-foreground">
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
+function PreferenceControls() {
+  return (
+    <div className="flex h-8 items-center gap-1 border border-border bg-background/30 px-2">
+      <CurrencySelect />
+      <LanguageFlagToggle />
+    </div>
+  )
+}
 
 export function Navbar() {
+  const { t } = useLanguage()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -40,20 +106,22 @@ export function Navbar() {
             : 'bg-transparent'
         )}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 lg:h-24">
+        <div className="w-full px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-24 pt-2 lg:h-28 lg:pt-3">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex h-full items-center gap-2">
               <motion.div
                 whileHover={{ scale: 1.02 }}
                 className="flex items-center"
               >
-                <span className="text-2xl lg:text-3xl font-serif tracking-wider text-foreground">
-                  VERSATE
-                </span>
-                <span className="ml-2 text-xs tracking-[0.3em] text-gold uppercase hidden sm:block">
-                  Properties
-                </span>
+                <Image
+                  src="/brand/vestate-properties-logo.png"
+                  alt="Vestate Properties"
+                  width={376}
+                  height={120}
+                  priority
+                  className="h-16 w-auto object-contain lg:h-20"
+                />
               </motion.div>
             </Link>
 
@@ -65,13 +133,14 @@ export function Navbar() {
                   href={link.href}
                   className="text-sm tracking-wider uppercase text-foreground/80 hover:text-gold transition-colors duration-300"
                 >
-                  {link.label}
+                  {t(link.labelKey)}
                 </Link>
               ))}
             </nav>
 
             {/* Right Actions */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 pr-3 sm:pr-5 lg:pr-8">
+              <PreferenceControls />
               <Link
                 href="/favorites"
                 className="p-2 hover:text-gold transition-colors duration-300"
@@ -121,7 +190,7 @@ export function Navbar() {
               className="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-background border-l border-border"
             >
               <div className="flex items-center justify-between p-6 border-b border-border">
-                <span className="text-xl font-serif tracking-wider">Menu</span>
+                <span className="text-xl font-serif tracking-wider">{t('nav.menu')}</span>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="p-2 hover:text-gold transition-colors duration-300"
@@ -142,10 +211,13 @@ export function Navbar() {
                       onClick={() => setIsMobileMenuOpen(false)}
                       className="text-lg tracking-wider uppercase text-foreground/80 hover:text-gold transition-colors duration-300"
                     >
-                      {link.label}
+                      {t(link.labelKey)}
                     </Link>
                   </motion.div>
                 ))}
+                <div className="pt-2">
+                  <PreferenceControls />
+                </div>
               </nav>
               <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-border">
                 <Link
@@ -153,7 +225,7 @@ export function Navbar() {
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="block w-full py-4 text-center bg-gold text-background font-medium tracking-wider uppercase hover:bg-gold-light transition-colors duration-300"
                 >
-                  Schedule Consultation
+                  {t('nav.schedule')}
                 </Link>
               </div>
             </motion.div>

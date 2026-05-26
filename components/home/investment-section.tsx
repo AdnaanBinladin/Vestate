@@ -5,31 +5,33 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight, Shield, Globe, TrendingUp, Award } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
 const benefits = [
   {
     icon: Shield,
-    title: 'Secure Investment',
-    description: 'Full legal protection with transparent documentation and due diligence.',
+    titleKey: 'investmentHome.secure',
+    descriptionKey: 'investmentHome.secureDesc',
   },
   {
     icon: Globe,
-    title: 'Foreign Ownership',
-    description: 'Eligible properties under IRS and PDS schemes for international investors.',
+    titleKey: 'investmentHome.foreign',
+    descriptionKey: 'investmentHome.foreignDesc',
   },
   {
     icon: TrendingUp,
-    title: 'High Returns',
-    description: 'Consistent appreciation with average returns of 12-18% annually.',
+    titleKey: 'investmentHome.returns',
+    descriptionKey: 'investmentHome.returnsDesc',
   },
   {
     icon: Award,
-    title: 'Premium Locations',
-    description: 'Exclusive access to the most prestigious land parcels in Mauritius.',
+    titleKey: 'investmentHome.locations',
+    descriptionKey: 'investmentHome.locationsDesc',
   },
-]
+] as const
 
 export function InvestmentSection() {
+  const { t } = useLanguage()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -44,22 +46,20 @@ export function InvestmentSection() {
             transition={{ duration: 0.8 }}
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              Investment Opportunity
+              {t('investmentHome.eyebrow')}
             </p>
             <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-6 leading-tight">
-              Why Invest in <br />
-              <span className="text-gold">Mauritius Land</span>
+              {t('investmentHome.titleTop')} <br />
+              <span className="text-gold">{t('investmentHome.titleAccent')}</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-              Mauritius offers a unique combination of political stability, 
-              favorable tax environment, and exceptional natural beauty, making 
-              it the premier destination for luxury land investment.
+              {t('investmentHome.description')}
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-10">
               {benefits.map((benefit, index) => (
                 <motion.div
-                  key={benefit.title}
+                  key={benefit.titleKey}
                   initial={{ opacity: 0, y: 20 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -69,8 +69,8 @@ export function InvestmentSection() {
                     <benefit.icon className="w-6 h-6 text-gold" />
                   </div>
                   <div>
-                    <h4 className="text-foreground font-medium mb-1">{benefit.title}</h4>
-                    <p className="text-muted-foreground text-sm">{benefit.description}</p>
+                    <h4 className="text-foreground font-medium mb-1">{t(benefit.titleKey)}</h4>
+                    <p className="text-muted-foreground text-sm">{t(benefit.descriptionKey)}</p>
                   </div>
                 </motion.div>
               ))}
@@ -80,7 +80,7 @@ export function InvestmentSection() {
               href="/investment"
               className="inline-flex items-center gap-2 px-8 py-4 bg-gold text-background font-medium tracking-wider uppercase hover:bg-gold-light transition-all duration-300"
             >
-              Learn More
+              {t('investmentHome.learnMore')}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
@@ -110,9 +110,9 @@ export function InvestmentSection() {
               className="absolute -bottom-8 -left-8 bg-card border border-border p-6 max-w-xs"
             >
               <p className="text-gold text-4xl font-serif mb-2">15%+</p>
-              <p className="text-foreground font-medium mb-1">Average Annual Return</p>
+              <p className="text-foreground font-medium mb-1">{t('investmentHome.averageReturn')}</p>
               <p className="text-muted-foreground text-sm">
-                on premium land investments over the past 5 years
+                {t('investmentHome.averageReturnDesc')}
               </p>
             </motion.div>
           </motion.div>

@@ -1,8 +1,9 @@
 'use client'
 
 import { useRef } from 'react'
-import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { useLanguage } from '@/components/language-provider'
 
 interface StatItemProps {
   label: string
@@ -78,6 +79,7 @@ interface StatsProps {
 }
 
 export function StatsSection({ stats }: StatsProps) {
+  const { t, tr } = useLanguage()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -91,10 +93,10 @@ export function StatsSection({ stats }: StatsProps) {
           className="text-center mb-16"
         >
           <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-            Our Track Record
+            {t('stats.eyebrow')}
           </p>
           <h2 className="text-4xl sm:text-5xl font-serif text-foreground">
-            Excellence in Numbers
+            {t('stats.title')}
           </h2>
         </motion.div>
 
@@ -102,7 +104,7 @@ export function StatsSection({ stats }: StatsProps) {
           {stats.map((stat, index) => (
             <StatItem
               key={stat.label}
-              label={stat.label}
+              label={tr(stat.label)}
               value={stat.value}
               suffix={stat.suffix}
               delay={index * 0.1}

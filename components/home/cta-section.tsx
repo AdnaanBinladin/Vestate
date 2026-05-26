@@ -4,8 +4,10 @@ import { useRef } from 'react'
 import Link from 'next/link'
 import { motion, useInView } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
 export function CTASection() {
+  const { t } = useLanguage()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -28,15 +30,14 @@ export function CTASection() {
           transition={{ duration: 0.8 }}
         >
           <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-            Start Your Journey
+            {t('cta.eyebrow')}
           </p>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-foreground mb-6 leading-tight">
-            Ready to Invest in <br />
-            <span className="text-gold">Your Future?</span>
+            {t('cta.titleTop')} <br />
+            <span className="text-gold">{t('cta.titleAccent')}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-12">
-            Connect with our team of luxury land specialists and discover 
-            the perfect investment opportunity tailored to your goals.
+            {t('cta.description')}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -44,14 +45,14 @@ export function CTASection() {
               href="/lands"
               className="inline-flex items-center gap-2 px-8 py-4 bg-gold text-background font-medium tracking-wider uppercase hover:bg-gold-light transition-all duration-300"
             >
-              Browse Properties
+              {t('cta.browse')}
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-8 py-4 border border-border text-foreground font-medium tracking-wider uppercase hover:border-gold hover:text-gold transition-all duration-300"
             >
-              Schedule Consultation
+              {t('cta.schedule')}
             </Link>
           </div>
         </motion.div>

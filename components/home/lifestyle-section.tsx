@@ -3,6 +3,7 @@
 import { useRef } from 'react'
 import Image from 'next/image'
 import { motion, useInView } from 'framer-motion'
+import { useLanguage } from '@/components/language-provider'
 
 const lifestyleImages = [
   {
@@ -33,6 +34,7 @@ const lifestyleImages = [
 ]
 
 export function LifestyleSection() {
+  const { t } = useLanguage()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
 
@@ -72,41 +74,29 @@ export function LifestyleSection() {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              The Mauritius Lifestyle
+              {t('lifestyle.eyebrow')}
             </p>
             <h2 className="text-4xl sm:text-5xl font-serif text-foreground mb-6 leading-tight">
-              Experience <br />
-              <span className="text-gold">Paradise Living</span>
+              {t('lifestyle.titleTop')} <br />
+              <span className="text-gold">{t('lifestyle.titleAccent')}</span>
             </h2>
             <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
-              <p>
-                Mauritius is more than an investment destination — it&apos;s a gateway 
-                to an extraordinary lifestyle. Crystal-clear lagoons, pristine beaches, 
-                and lush tropical landscapes create the perfect backdrop for luxury living.
-              </p>
-              <p>
-                From world-class golf courses and exclusive beach clubs to fine dining 
-                and vibrant cultural experiences, Mauritius offers a unique blend of 
-                relaxation and sophistication.
-              </p>
-              <p>
-                Your land investment here isn&apos;t just about returns — it&apos;s about 
-                securing your place in one of the world&apos;s most desirable destinations.
-              </p>
+              <p>{t('lifestyle.body1')}</p>
+              <p>{t('lifestyle.body2')}</p>
+              <p>{t('lifestyle.body3')}</p>
             </div>
-
             <div className="mt-10 grid grid-cols-3 gap-8 pt-10 border-t border-border">
               <div>
                 <p className="text-3xl font-serif text-gold mb-2">330</p>
-                <p className="text-muted-foreground text-sm">Sunny Days Per Year</p>
+                <p className="text-muted-foreground text-sm">{t('lifestyle.sunny')}</p>
               </div>
               <div>
                 <p className="text-3xl font-serif text-gold mb-2">120+</p>
-                <p className="text-muted-foreground text-sm">Golf Courses</p>
+                <p className="text-muted-foreground text-sm">{t('lifestyle.golf')}</p>
               </div>
               <div>
                 <p className="text-3xl font-serif text-gold mb-2">Top 10</p>
-                <p className="text-muted-foreground text-sm">Safest Countries</p>
+                <p className="text-muted-foreground text-sm">{t('lifestyle.safe')}</p>
               </div>
             </div>
           </motion.div>

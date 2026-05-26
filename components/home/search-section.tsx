@@ -5,8 +5,10 @@ import { useRouter } from 'next/navigation'
 import { motion, useInView } from 'framer-motion'
 import { Search, MapPin, Maximize, DollarSign } from 'lucide-react'
 import { regions, propertyTypes } from '@/lib/data'
+import { useLanguage } from '@/components/language-provider'
 
 export function SearchSection() {
+  const { t, tr } = useLanguage()
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-50px' })
   const router = useRouter()
@@ -29,7 +31,7 @@ export function SearchSection() {
   }
 
   return (
-    <section ref={ref} className="relative -mt-24 z-20 pb-12">
+    <section ref={ref} className="relative -mt-8 z-20 pb-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -42,7 +44,7 @@ export function SearchSection() {
               {/* Property Type */}
               <div>
                 <label className="block text-xs tracking-wider uppercase text-muted-foreground mb-2">
-                  Property Type
+                  {t('search.propertyType')}
                 </label>
                 <div className="relative">
                   <select
@@ -50,10 +52,10 @@ export function SearchSection() {
                     onChange={(e) => setFilters({ ...filters, type: e.target.value })}
                     className="w-full bg-input border border-border px-4 py-3 text-foreground appearance-none focus:outline-none focus:border-gold transition-colors"
                   >
-                    <option value="">All Types</option>
+                    <option value="">{t('search.allTypes')}</option>
                     {propertyTypes.map((type) => (
                       <option key={type.value} value={type.value}>
-                        {type.label}
+                        {tr(type.label)}
                       </option>
                     ))}
                   </select>
@@ -64,7 +66,7 @@ export function SearchSection() {
               {/* Region */}
               <div>
                 <label className="block text-xs tracking-wider uppercase text-muted-foreground mb-2">
-                  Region
+                  {t('search.region')}
                 </label>
                 <div className="relative">
                   <select
@@ -72,10 +74,10 @@ export function SearchSection() {
                     onChange={(e) => setFilters({ ...filters, region: e.target.value })}
                     className="w-full bg-input border border-border px-4 py-3 text-foreground appearance-none focus:outline-none focus:border-gold transition-colors"
                   >
-                    <option value="">All Regions</option>
+                    <option value="">{t('search.allRegions')}</option>
                     {regions.map((region) => (
                       <option key={region.value} value={region.value}>
-                        {region.label}
+                        {tr(region.label)}
                       </option>
                     ))}
                   </select>
@@ -86,12 +88,12 @@ export function SearchSection() {
               {/* Min Price */}
               <div>
                 <label className="block text-xs tracking-wider uppercase text-muted-foreground mb-2">
-                  Min Budget (MUR)
+                  {t('search.minBudget')}
                 </label>
                 <div className="relative">
                   <input
                     type="number"
-                    placeholder="Any"
+                    placeholder={t('search.any')}
                     value={filters.minPrice}
                     onChange={(e) => setFilters({ ...filters, minPrice: e.target.value })}
                     className="w-full bg-input border border-border px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-gold transition-colors"
@@ -103,12 +105,12 @@ export function SearchSection() {
               {/* Max Price */}
               <div>
                 <label className="block text-xs tracking-wider uppercase text-muted-foreground mb-2">
-                  Max Budget (MUR)
+                  {t('search.maxBudget')}
                 </label>
                 <div className="relative">
                   <input
                     type="number"
-                    placeholder="Any"
+                    placeholder={t('search.any')}
                     value={filters.maxPrice}
                     onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
                     className="w-full bg-input border border-border px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-gold transition-colors"
@@ -124,7 +126,7 @@ export function SearchSection() {
                   className="w-full flex items-center justify-center gap-2 bg-gold text-background px-6 py-3 font-medium tracking-wider uppercase hover:bg-gold-light transition-colors"
                 >
                   <Search className="w-4 h-4" />
-                  <span>Search</span>
+                  <span>{t('search.submit')}</span>
                 </button>
               </div>
             </div>

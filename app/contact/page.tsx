@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
+import { useLanguage } from '@/components/language-provider'
 import { MapPin, Phone, Mail, Clock, Send, MessageSquare } from 'lucide-react'
 
 const contactInfo = [
@@ -20,7 +21,7 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email Us',
-    details: ['contact@versate.mu', 'sales@versate.mu'],
+    details: ['contact@vestate.mu', 'sales@vestate.mu'],
   },
   {
     icon: Clock,
@@ -30,6 +31,74 @@ const contactInfo = [
 ]
 
 export default function ContactPage() {
+  const { language, tr } = useLanguage()
+  const copy = language === 'fr'
+    ? {
+        heroEyebrow: 'Contactez-nous',
+        heroTitle: 'Entrer en contact',
+        heroDesc: 'Pret a commencer votre parcours d’investissement ? Notre equipe est la pour vous accompagner.',
+        formTitle: 'Envoyez-nous un message',
+        formDesc: 'Remplissez le formulaire ci-dessous et nous vous repondrons sous 24 heures.',
+        firstName: 'Prenom *',
+        lastName: 'Nom *',
+        email: 'Adresse email *',
+        phone: 'Telephone',
+        subject: 'Sujet *',
+        selectSubject: 'Selectionner un sujet',
+        general: 'Demande generale',
+        property: 'Demande sur une propriete',
+        investment: 'Consultation investissement',
+        partnership: 'Partenariat',
+        other: 'Autre',
+        budget: 'Budget d’investissement',
+        selectBudget: 'Selectionner une fourchette',
+        budgetUnder: 'Moins de MUR 20M',
+        budgetOver: 'Plus de MUR 100M',
+        message: 'Message *',
+        messagePlaceholder: 'Parlez-nous de vos objectifs...',
+        preferred: 'Methode de contact preferee',
+        emailContact: 'Email',
+        phoneContact: 'Telephone',
+        send: 'Envoyer le message',
+        mapPlace: 'Grand Baie, Maurice',
+        mapNote: 'La carte interactive serait affichee ici',
+        talkTitle: 'Vous preferez parler ?',
+        talkDesc: 'Planifiez un appel avec l’un de nos specialistes pour une consultation personnalisee.',
+        alert: 'Merci pour votre message. Nous vous repondrons bientot.',
+      }
+    : {
+        heroEyebrow: 'Contact Us',
+        heroTitle: 'Get in Touch',
+        heroDesc: 'Ready to start your investment journey? Our team of experts is here to guide you every step of the way.',
+        formTitle: 'Send Us a Message',
+        formDesc: "Fill out the form below and we'll get back to you within 24 hours.",
+        firstName: 'First Name *',
+        lastName: 'Last Name *',
+        email: 'Email Address *',
+        phone: 'Phone Number',
+        subject: 'Subject *',
+        selectSubject: 'Select a subject',
+        general: 'General Inquiry',
+        property: 'Property Inquiry',
+        investment: 'Investment Consultation',
+        partnership: 'Partnership Opportunity',
+        other: 'Other',
+        budget: 'Investment Budget Range',
+        selectBudget: 'Select budget range',
+        budgetUnder: 'Under MUR 20M',
+        budgetOver: 'Over MUR 100M',
+        message: 'Message *',
+        messagePlaceholder: 'Tell us about your investment goals...',
+        preferred: 'Preferred Contact Method',
+        emailContact: 'Email',
+        phoneContact: 'Phone',
+        send: 'Send Message',
+        mapPlace: 'Grand Baie, Mauritius',
+        mapNote: 'Interactive map would be displayed here',
+        talkTitle: 'Prefer to Talk?',
+        talkDesc: 'Schedule a call with one of our investment specialists for a personalized consultation.',
+        alert: 'Thank you for your message. We will get back to you shortly.',
+      }
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -44,7 +113,7 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     // Handle form submission
-    alert('Thank you for your message. We will get back to you shortly.')
+    alert(copy.alert)
     setFormData({
       firstName: '',
       lastName: '',
@@ -71,14 +140,13 @@ export default function ContactPage() {
             className="text-center"
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              Contact Us
+              {copy.heroEyebrow}
             </p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-foreground mb-6">
-              Get in Touch
+              {copy.heroTitle}
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Ready to start your investment journey? Our team of experts is here 
-              to guide you every step of the way.
+              {copy.heroDesc}
             </p>
           </motion.div>
         </div>
@@ -100,11 +168,11 @@ export default function ContactPage() {
                   <info.icon className="w-6 h-6 text-gold" />
                 </div>
                 <h3 className="text-lg font-serif text-foreground mb-3">
-                  {info.title}
+                  {tr(info.title)}
                 </h3>
                 {info.details.map((detail, i) => (
                   <p key={i} className="text-muted-foreground text-sm">
-                    {detail}
+                    {tr(detail)}
                   </p>
                 ))}
               </motion.div>
@@ -126,10 +194,10 @@ export default function ContactPage() {
             >
               <div className="mb-8">
                 <h2 className="text-3xl font-serif text-foreground mb-4">
-                  Send Us a Message
+                  {copy.formTitle}
                 </h2>
                 <p className="text-muted-foreground">
-                  Fill out the form below and we&apos;ll get back to you within 24 hours.
+                  {copy.formDesc}
                 </p>
               </div>
 
@@ -137,7 +205,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-xs tracking-wider uppercase text-muted-foreground mb-2">
-                      First Name *
+                      {copy.firstName}
                     </label>
                     <input
                       type="text"
@@ -149,7 +217,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label className="block text-xs tracking-wider uppercase text-muted-foreground mb-2">
-                      Last Name *
+                      {copy.lastName}
                     </label>
                     <input
                       type="text"
@@ -164,7 +232,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-xs tracking-wider uppercase text-muted-foreground mb-2">
-                      Email Address *
+                      {copy.email}
                     </label>
                     <input
                       type="email"
@@ -176,7 +244,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label className="block text-xs tracking-wider uppercase text-muted-foreground mb-2">
-                      Phone Number
+                      {copy.phone}
                     </label>
                     <input
                       type="tel"
@@ -189,7 +257,7 @@ export default function ContactPage() {
 
                 <div>
                   <label className="block text-xs tracking-wider uppercase text-muted-foreground mb-2">
-                    Subject *
+                    {copy.subject}
                   </label>
                   <select
                     required
@@ -197,49 +265,49 @@ export default function ContactPage() {
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                     className="w-full bg-input border border-border px-4 py-3 text-foreground focus:outline-none focus:border-gold transition-colors"
                   >
-                    <option value="">Select a subject</option>
-                    <option value="general">General Inquiry</option>
-                    <option value="property">Property Inquiry</option>
-                    <option value="investment">Investment Consultation</option>
-                    <option value="partnership">Partnership Opportunity</option>
-                    <option value="other">Other</option>
+                    <option value="">{copy.selectSubject}</option>
+                    <option value="general">{copy.general}</option>
+                    <option value="property">{copy.property}</option>
+                    <option value="investment">{copy.investment}</option>
+                    <option value="partnership">{copy.partnership}</option>
+                    <option value="other">{copy.other}</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-xs tracking-wider uppercase text-muted-foreground mb-2">
-                    Investment Budget Range
+                    {copy.budget}
                   </label>
                   <select
                     value={formData.investmentBudget}
                     onChange={(e) => setFormData({ ...formData, investmentBudget: e.target.value })}
                     className="w-full bg-input border border-border px-4 py-3 text-foreground focus:outline-none focus:border-gold transition-colors"
                   >
-                    <option value="">Select budget range</option>
-                    <option value="under-20m">Under MUR 20M</option>
+                    <option value="">{copy.selectBudget}</option>
+                    <option value="under-20m">{copy.budgetUnder}</option>
                     <option value="20m-50m">MUR 20M - 50M</option>
                     <option value="50m-100m">MUR 50M - 100M</option>
-                    <option value="over-100m">Over MUR 100M</option>
+                    <option value="over-100m">{copy.budgetOver}</option>
                   </select>
                 </div>
 
                 <div>
                   <label className="block text-xs tracking-wider uppercase text-muted-foreground mb-2">
-                    Message *
+                    {copy.message}
                   </label>
                   <textarea
                     required
                     rows={5}
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    placeholder="Tell us about your investment goals..."
+                    placeholder={copy.messagePlaceholder}
                     className="w-full bg-input border border-border px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-gold transition-colors resize-none"
                   />
                 </div>
 
                 <div>
                   <label className="block text-xs tracking-wider uppercase text-muted-foreground mb-3">
-                    Preferred Contact Method
+                    {copy.preferred}
                   </label>
                   <div className="flex gap-6">
                     <label className="flex items-center gap-2 cursor-pointer">
@@ -251,7 +319,7 @@ export default function ContactPage() {
                         onChange={(e) => setFormData({ ...formData, preferredContact: e.target.value })}
                         className="w-4 h-4 text-gold"
                       />
-                      <span className="text-foreground">Email</span>
+                      <span className="text-foreground">{copy.emailContact}</span>
                     </label>
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input
@@ -262,7 +330,7 @@ export default function ContactPage() {
                         onChange={(e) => setFormData({ ...formData, preferredContact: e.target.value })}
                         className="w-4 h-4 text-gold"
                       />
-                      <span className="text-foreground">Phone</span>
+                      <span className="text-foreground">{copy.phoneContact}</span>
                     </label>
                   </div>
                 </div>
@@ -272,7 +340,7 @@ export default function ContactPage() {
                   className="w-full flex items-center justify-center gap-2 bg-gold text-background py-4 font-medium tracking-wider uppercase hover:bg-gold-light transition-colors"
                 >
                   <Send className="w-4 h-4" />
-                  Send Message
+                  {copy.send}
                 </button>
               </form>
             </motion.div>
@@ -289,10 +357,10 @@ export default function ContactPage() {
                 <div className="text-center">
                   <MapPin className="w-16 h-16 text-gold mx-auto mb-4" />
                   <p className="text-foreground font-serif text-lg mb-2">
-                    Grand Baie, Mauritius
+                    {copy.mapPlace}
                   </p>
                   <p className="text-muted-foreground text-sm">
-                    Interactive map would be displayed here
+                    {copy.mapNote}
                   </p>
                 </div>
               </div>
@@ -302,12 +370,11 @@ export default function ContactPage() {
                 <div className="flex items-center gap-3 mb-6">
                   <MessageSquare className="w-6 h-6 text-gold" />
                   <h3 className="text-xl font-serif text-foreground">
-                    Prefer to Talk?
+                    {copy.talkTitle}
                   </h3>
                 </div>
                 <p className="text-muted-foreground mb-6">
-                  Schedule a call with one of our investment specialists for a 
-                  personalized consultation.
+                  {copy.talkDesc}
                 </p>
                 <a
                   href="tel:+2305555555"

@@ -2,8 +2,11 @@
 
 import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
 export function HeroSection() {
+  const { t } = useLanguage()
+
   const scrollToContent = () => {
     window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })
   }
@@ -43,7 +46,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="text-gold text-sm sm:text-base tracking-[0.3em] uppercase mb-6"
           >
-            Premium Land Investment in Mauritius
+            {t('hero.eyebrow')}
           </motion.p>
           
           <motion.h1
@@ -52,9 +55,9 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.7 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-white leading-tight mb-8"
           >
-            Discover Exclusive
+            {t('hero.titleTop')}
             <br />
-            <span className="text-gold">Land Opportunities</span>
+            <span className="text-gold">{t('hero.titleAccent')}</span>
           </motion.h1>
           
           <motion.p
@@ -63,8 +66,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.9 }}
             className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto mb-12 leading-relaxed"
           >
-            Invest in paradise with our curated selection of premium plots 
-            in Mauritius&apos; most prestigious locations.
+            {t('hero.description')}
           </motion.p>
 
           <motion.div
@@ -77,13 +79,13 @@ export function HeroSection() {
               href="/lands"
               className="px-8 py-4 bg-gold text-background font-medium tracking-wider uppercase hover:bg-gold-light transition-all duration-300 w-full sm:w-auto text-center"
             >
-              Explore Portfolio
+              {t('hero.explore')}
             </a>
             <a
               href="/contact"
               className="px-8 py-4 border border-white/30 text-white font-medium tracking-wider uppercase hover:bg-white/10 transition-all duration-300 w-full sm:w-auto text-center"
             >
-              Schedule Consultation
+              {t('hero.schedule')}
             </a>
           </motion.div>
         </motion.div>
@@ -96,7 +98,7 @@ export function HeroSection() {
           onClick={scrollToContent}
           className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60 hover:text-gold transition-colors cursor-pointer"
         >
-          <span className="text-xs tracking-widest uppercase">Scroll</span>
+          <span className="text-xs tracking-widest uppercase">{t('hero.scroll')}</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ duration: 1.5, repeat: Infinity }}

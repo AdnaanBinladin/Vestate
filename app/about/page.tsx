@@ -4,6 +4,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
+import { useLanguage } from '@/components/language-provider'
 import { teamMembers, stats } from '@/lib/data'
 import { Award, Globe, Users, TrendingUp, Mail, Linkedin } from 'lucide-react'
 
@@ -31,6 +32,47 @@ const values = [
 ]
 
 export default function AboutPage() {
+  const { language, tr } = useLanguage()
+  const copy = language === 'fr'
+    ? {
+        eyebrow: 'A propos de Vestate',
+        titleTop: 'Redefinir le luxe',
+        titleAccent: 'dans l’investissement foncier',
+        intro: 'Depuis plus de 15 ans, Vestate est un nom de confiance dans l’investissement foncier premium a Maurice. Nous combinons expertise locale et reseau international.',
+        storyEyebrow: 'Notre histoire',
+        storyTitle: 'Un heritage d’excellence',
+        story: [
+          'Fondee en 2009, Vestate est nee avec une vision simple: rendre l’investissement foncier de luxe a Maurice accessible aux investisseurs exigeants.',
+          'Aujourd’hui, Vestate est une societe de confiance dans le foncier et l’immobilier a Maurice, avec des opportunites en vente de terrains, terrains agricoles, location de maisons et developpement hotelier.',
+          'Notre difference repose sur un service personnalise et une connaissance approfondie du marche local comme des exigences internationales.',
+        ],
+        years: 'Annees d’excellence',
+        valuesEyebrow: 'Nos valeurs',
+        valuesTitle: 'Ce qui nous guide',
+        teamEyebrow: 'Notre equipe',
+        teamTitle: 'Rencontrez les experts',
+        teamDesc: 'Notre equipe de professionnels experimentes vous aide a trouver l’opportunite d’investissement ideale.',
+      }
+    : {
+        eyebrow: 'About Vestate',
+        titleTop: 'Redefining Luxury',
+        titleAccent: 'Land Investment',
+        intro: 'For over 15 years, Vestate has been the trusted name in premium land investment in Mauritius. We combine deep local expertise with global connections to deliver exceptional opportunities.',
+        storyEyebrow: 'Our Story',
+        storyTitle: 'A Legacy of Excellence',
+        story: [
+          'Founded in 2009, Vestate began with a simple vision: to make luxury land investment in Mauritius accessible to discerning investors worldwide.',
+          'Today, Vestate is a trusted land and property company in Mauritius, with opportunities across land sales, agricultural land sales, house rentals, and hospitality development.',
+          'What sets us apart is our commitment to personalized service and our deep understanding of both the local market and international investment requirements.',
+        ],
+        years: 'Years of Excellence',
+        valuesEyebrow: 'Our Values',
+        valuesTitle: 'What Drives Us',
+        teamEyebrow: 'Our Team',
+        teamTitle: 'Meet the Experts',
+        teamDesc: 'Our team of experienced professionals is dedicated to helping you find the perfect investment opportunity.',
+      }
+
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
@@ -46,16 +88,14 @@ export default function AboutPage() {
             className="text-center max-w-3xl mx-auto"
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              About Versate
+              {copy.eyebrow}
             </p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-foreground mb-6">
-              Redefining Luxury <br />
-              <span className="text-gold">Land Investment</span>
+              {copy.titleTop} <br />
+              <span className="text-gold">{copy.titleAccent}</span>
             </h1>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              For over 15 years, Versate has been the trusted name in premium land 
-              investment in Mauritius. We combine deep local expertise with global 
-              connections to deliver exceptional opportunities.
+              {copy.intro}
             </p>
           </motion.div>
         </div>
@@ -72,31 +112,15 @@ export default function AboutPage() {
               transition={{ duration: 0.8 }}
             >
               <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-                Our Story
+                {copy.storyEyebrow}
               </p>
               <h2 className="text-3xl sm:text-4xl font-serif text-foreground mb-6">
-                A Legacy of Excellence
+                {copy.storyTitle}
               </h2>
               <div className="space-y-6 text-muted-foreground leading-relaxed">
-                <p>
-                  Founded in 2009, Versate began with a simple vision: to make luxury 
-                  land investment in Mauritius accessible to discerning investors worldwide. 
-                  Our founders, with decades of combined experience in international real 
-                  estate, saw the untapped potential of Mauritius as a premier investment 
-                  destination.
-                </p>
-                <p>
-                  Today, we are proud to be the leading luxury land brokerage in Mauritius, 
-                  having facilitated over MUR 2.5 billion in successful transactions. Our 
-                  exclusive portfolio includes the most prestigious plots in prime locations 
-                  across the island.
-                </p>
-                <p>
-                  What sets us apart is our commitment to personalized service and our 
-                  deep understanding of both the local market and international investment 
-                  requirements. We don&apos;t just sell land — we create opportunities for 
-                  generational wealth.
-                </p>
+                {copy.story.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
               </div>
             </motion.div>
 
@@ -110,7 +134,7 @@ export default function AboutPage() {
               <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
                   src="https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?w=800&q=80"
-                  alt="Versate office"
+                  alt={language === 'fr' ? 'Bureau Vestate' : 'Vestate office'}
                   fill
                   className="object-cover"
                 />
@@ -124,7 +148,7 @@ export default function AboutPage() {
               >
                 <p className="text-4xl font-serif text-background mb-2">15+</p>
                 <p className="text-background/80 text-sm tracking-wider uppercase">
-                  Years of Excellence
+                  {copy.years}
                 </p>
               </motion.div>
             </motion.div>
@@ -143,10 +167,10 @@ export default function AboutPage() {
             className="text-center mb-16"
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              Our Values
+              {copy.valuesEyebrow}
             </p>
             <h2 className="text-3xl sm:text-4xl font-serif text-foreground">
-              What Drives Us
+              {copy.valuesTitle}
             </h2>
           </motion.div>
 
@@ -164,10 +188,10 @@ export default function AboutPage() {
                   <value.icon className="w-8 h-8 text-gold" />
                 </div>
                 <h3 className="text-xl font-serif text-foreground mb-3">
-                  {value.title}
+                  {tr(value.title)}
                 </h3>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  {value.description}
+                  {tr(value.description)}
                 </p>
               </motion.div>
             ))}
@@ -186,14 +210,13 @@ export default function AboutPage() {
             className="text-center mb-16"
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              Our Team
+              {copy.teamEyebrow}
             </p>
             <h2 className="text-3xl sm:text-4xl font-serif text-foreground mb-6">
-              Meet the Experts
+              {copy.teamTitle}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our team of experienced professionals is dedicated to helping you 
-              find the perfect investment opportunity.
+              {copy.teamDesc}
             </p>
           </motion.div>
 
@@ -238,10 +261,10 @@ export default function AboutPage() {
                   {member.name}
                 </h3>
                 <p className="text-gold text-sm tracking-wider uppercase mb-3">
-                  {member.role}
+                  {tr(member.role)}
                 </p>
                 <p className="text-muted-foreground text-sm leading-relaxed">
-                  {member.bio}
+                  {tr(member.bio)}
                 </p>
               </motion.div>
             ))}
@@ -267,7 +290,7 @@ export default function AboutPage() {
                   {stat.suffix && <span className="text-3xl ml-1">{stat.suffix}</span>}
                 </div>
                 <p className="text-foreground/80 text-sm tracking-wider uppercase">
-                  {stat.label}
+                  {tr(stat.label)}
                 </p>
               </motion.div>
             ))}

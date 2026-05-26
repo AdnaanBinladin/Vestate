@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
+import { useLanguage } from '@/components/language-provider'
 import {
   Shield,
   TrendingUp,
@@ -115,6 +116,187 @@ const process = [
 ]
 
 export default function InvestmentPage() {
+  const { language } = useLanguage()
+
+  const copy =
+    language === 'fr'
+      ? {
+          heroAlt: 'Investissement',
+          heroEyebrow: "Guide d'investissement",
+          heroTitleTop: 'Investir a',
+          heroTitleAccent: 'Maurice',
+          heroDescription:
+            "Decouvrez pourquoi Maurice est une destination de choix pour l'investissement foncier de luxe. Fiscalite attractive, stabilite et beaute naturelle creent des opportunites solides.",
+          heroCta: 'Parler a un conseiller',
+          whyEyebrow: 'Pourquoi Maurice',
+          whyTitle: "Une destination d'investissement ideale",
+          whyDescription:
+            "Maurice combine stabilite politique, fiscalite favorable et qualite de vie exceptionnelle pour offrir un environnement ideal aux investisseurs immobiliers internationaux.",
+          schemesEyebrow: "Regimes d'investissement",
+          schemesTitle: "Voies d'acces a la propriete",
+          schemesDescription:
+            "Le gouvernement mauricien propose plusieurs regimes permettant aux ressortissants etrangers d'acquerir des biens et d'obtenir un permis de residence.",
+          minLabel: 'Min.',
+          processEyebrow: 'Notre processus',
+          processTitle: "Votre parcours vers la propriete",
+          processDescription:
+            "Nous vous accompagnons a chaque etape afin de rendre le processus d'investissement clair, fluide et transparent.",
+          ctaEyebrow: 'Pret a investir ?',
+          ctaTitle: "Commencez votre parcours d'investissement aujourd'hui",
+          ctaDescription:
+            "Notre equipe de specialistes est prete a vous aider a naviguer le marche immobilier mauricien et a trouver l'opportunite adaptee.",
+          browse: 'Voir les proprietes',
+          contact: 'Nous contacter',
+        }
+      : {
+          heroAlt: 'Investment',
+          heroEyebrow: 'Investment Guide',
+          heroTitleTop: 'Invest in',
+          heroTitleAccent: 'Mauritius',
+          heroDescription:
+            'Discover why Mauritius is the premier destination for luxury land investment. From favorable tax policies to stunning natural beauty, explore the opportunities that await.',
+          heroCta: 'Speak with an Advisor',
+          whyEyebrow: 'Why Mauritius',
+          whyTitle: 'The Perfect Investment Destination',
+          whyDescription:
+            'Mauritius combines political stability, favorable tax policies, and exceptional quality of life to create the ideal environment for international property investment.',
+          schemesEyebrow: 'Investment Schemes',
+          schemesTitle: 'Pathways to Ownership',
+          schemesDescription:
+            'The Mauritian government offers several schemes allowing foreign nationals to acquire property and obtain residence permits.',
+          minLabel: 'Min.',
+          processEyebrow: 'Our Process',
+          processTitle: 'Your Journey to Ownership',
+          processDescription:
+            'We guide you through every step of the investment process, ensuring a smooth and transparent experience from start to finish.',
+          ctaEyebrow: 'Ready to Invest?',
+          ctaTitle: 'Start Your Investment Journey Today',
+          ctaDescription:
+            'Our team of investment specialists is ready to help you navigate the Mauritius property market and find the perfect opportunity.',
+          browse: 'Browse Properties',
+          contact: 'Contact Us',
+        }
+
+  const localizedBenefits =
+    language === 'fr'
+      ? [
+          {
+            icon: Shield,
+            title: 'Stabilite politique',
+            description:
+              "Maurice beneficie de l'une des democraties les plus stables d'Afrique, avec un cadre juridique solide.",
+          },
+          {
+            icon: TrendingUp,
+            title: 'Economie en croissance',
+            description:
+              'Une economie diversifiee avec des secteurs forts comme le tourisme, la finance et la technologie.',
+          },
+          {
+            icon: Globe,
+            title: 'Avantages fiscaux',
+            description:
+              'Absence de taxe sur les plus-values, fiscalite attractive et nombreux accords de non-double imposition.',
+          },
+          {
+            icon: FileText,
+            title: 'Cadre juridique',
+            description:
+              'Des lois immobilieres transparentes inspirees du droit civil francais et de la common law anglaise.',
+          },
+          {
+            icon: Building,
+            title: 'Infrastructure',
+            description:
+              'Infrastructures modernes, connectivite internationale et services haut de gamme.',
+          },
+          {
+            icon: Users,
+            title: 'Qualite de vie',
+            description:
+              'Un cadre de vie exceptionnel avec plages, climat agreable et population multilingue.',
+          },
+        ]
+      : benefits
+
+  const localizedInvestmentSchemes =
+    language === 'fr'
+      ? [
+          {
+            title: 'IRS - Integrated Resort Scheme',
+            description:
+              "Permet aux non-citoyens d'acheter une propriete residentielle dans des developpements IRS approuves avec un seuil minimal d'investissement.",
+            features: [
+              'Permis de residence permanente pour les investissements de plus de 375 000 USD',
+              'Acces a des services de resort haut de gamme',
+              'Potentiel de revenus locatifs',
+              'Potentiel de valorisation du capital',
+            ],
+            minInvestment: 'USD 375,000',
+          },
+          {
+            title: 'PDS - Property Development Scheme',
+            description:
+              'Un regime flexible pour developper ou acquerir des proprietes residentielles haut de gamme.',
+            features: [
+              'Residence permanente pour les investissements de plus de 375 000 USD',
+              'Plus de flexibilite dans les types de biens',
+              'Opportunites de developpement mixte',
+              "Aucune restriction sur le nombre d'unites",
+            ],
+            minInvestment: 'USD 375,000',
+          },
+          {
+            title: 'Smart City Scheme',
+            description:
+              'Des developpements modernes combinant residentiel, commerce et loisirs dans des environnements integres.',
+            features: [
+              'Infrastructure moderne',
+              'Concepts de vie durable',
+              'Mix residentiel et professionnel',
+              'Incitations gouvernementales',
+            ],
+            minInvestment: 'USD 375,000',
+          },
+        ]
+      : investmentSchemes
+
+  const localizedProcess =
+    language === 'fr'
+      ? [
+          {
+            step: '01',
+            title: 'Consultation initiale',
+            description:
+              'Rencontrez nos conseillers pour discuter de vos objectifs, de votre budget et de vos preferences.',
+          },
+          {
+            step: '02',
+            title: 'Selection du bien',
+            description:
+              'Parcourez notre portefeuille et visitez les biens correspondant a vos criteres.',
+          },
+          {
+            step: '03',
+            title: 'Verification',
+            description:
+              'Notre equipe juridique verifie soigneusement les documents, titres et autorisations.',
+          },
+          {
+            step: '04',
+            title: 'Accord de vente',
+            description:
+              "Examinez et signez l'accord de vente avec l'accompagnement de nos conseillers.",
+          },
+          {
+            step: '05',
+            title: 'Finalisation',
+            description:
+              'Finalisez la transaction et recevez votre acte de propriete ainsi que le permis applicable.',
+          },
+        ]
+      : process
+
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
@@ -124,7 +306,7 @@ export default function InvestmentPage() {
         <div className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&q=80"
-            alt="Investment"
+            alt={copy.heroAlt}
             fill
             className="object-cover"
           />
@@ -138,21 +320,20 @@ export default function InvestmentPage() {
             className="text-center max-w-3xl mx-auto"
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              Investment Guide
+              {copy.heroEyebrow}
             </p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-white mb-6">
-              Invest in <span className="text-gold">Mauritius</span>
+              {copy.heroTitleTop}{' '}
+              <span className="text-gold">{copy.heroTitleAccent}</span>
             </h1>
             <p className="text-white/80 text-lg leading-relaxed mb-8">
-              Discover why Mauritius is the premier destination for luxury land 
-              investment. From favorable tax policies to stunning natural beauty, 
-              explore the opportunities that await.
+              {copy.heroDescription}
             </p>
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 px-8 py-4 bg-gold text-background font-medium tracking-wider uppercase hover:bg-gold-light transition-all"
             >
-              Speak with an Advisor
+              {copy.heroCta}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
@@ -170,20 +351,18 @@ export default function InvestmentPage() {
             className="text-center mb-16"
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              Why Mauritius
+              {copy.whyEyebrow}
             </p>
             <h2 className="text-3xl sm:text-4xl font-serif text-foreground mb-6">
-              The Perfect Investment Destination
+              {copy.whyTitle}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Mauritius combines political stability, favorable tax policies, and 
-              exceptional quality of life to create the ideal environment for 
-              international property investment.
+              {copy.whyDescription}
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {benefits.map((benefit, index) => (
+            {localizedBenefits.map((benefit, index) => (
               <motion.div
                 key={benefit.title}
                 initial={{ opacity: 0, y: 20 }}
@@ -218,19 +397,18 @@ export default function InvestmentPage() {
             className="text-center mb-16"
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              Investment Schemes
+              {copy.schemesEyebrow}
             </p>
             <h2 className="text-3xl sm:text-4xl font-serif text-foreground mb-6">
-              Pathways to Ownership
+              {copy.schemesTitle}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              The Mauritian government offers several schemes allowing foreign 
-              nationals to acquire property and obtain residence permits.
+              {copy.schemesDescription}
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {investmentSchemes.map((scheme, index) => (
+            {localizedInvestmentSchemes.map((scheme, index) => (
               <motion.div
                 key={scheme.title}
                 initial={{ opacity: 0, y: 20 }}
@@ -241,7 +419,7 @@ export default function InvestmentPage() {
               >
                 <div className="flex items-center gap-2 text-gold text-sm tracking-wider uppercase mb-4">
                   <Briefcase className="w-4 h-4" />
-                  <span>Min. {scheme.minInvestment}</span>
+                  <span>{copy.minLabel} {scheme.minInvestment}</span>
                 </div>
                 <h3 className="text-xl font-serif text-foreground mb-4">
                   {scheme.title}
@@ -274,21 +452,20 @@ export default function InvestmentPage() {
             className="text-center mb-16"
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              Our Process
+              {copy.processEyebrow}
             </p>
             <h2 className="text-3xl sm:text-4xl font-serif text-foreground mb-6">
-              Your Journey to Ownership
+              {copy.processTitle}
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              We guide you through every step of the investment process, ensuring 
-              a smooth and transparent experience from start to finish.
+              {copy.processDescription}
             </p>
           </motion.div>
 
           <div className="relative">
             <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px bg-border -translate-y-1/2" />
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
-              {process.map((step, index) => (
+              {localizedProcess.map((step, index) => (
                 <motion.div
                   key={step.step}
                   initial={{ opacity: 0, y: 20 }}
@@ -323,28 +500,27 @@ export default function InvestmentPage() {
             transition={{ duration: 0.6 }}
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              Ready to Invest?
+              {copy.ctaEyebrow}
             </p>
             <h2 className="text-3xl sm:text-4xl font-serif text-foreground mb-6">
-              Start Your Investment Journey Today
+              {copy.ctaTitle}
             </h2>
             <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-              Our team of investment specialists is ready to help you navigate 
-              the Mauritius property market and find the perfect opportunity.
+              {copy.ctaDescription}
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/lands"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-gold text-background font-medium tracking-wider uppercase hover:bg-gold-light transition-all"
               >
-                Browse Properties
+                {copy.browse}
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/contact"
                 className="inline-flex items-center gap-2 px-8 py-4 border border-border text-foreground font-medium tracking-wider uppercase hover:border-gold hover:text-gold transition-all"
               >
-                Contact Us
+                {copy.contact}
               </Link>
             </div>
           </motion.div>

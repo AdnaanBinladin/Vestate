@@ -5,12 +5,45 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Navbar } from '@/components/navbar'
 import { Footer } from '@/components/footer'
+import { useLanguage } from '@/components/language-provider'
 import { blogPosts } from '@/lib/data'
 import { Calendar, Clock, ArrowRight, Tag } from 'lucide-react'
 
 const categories = ['All', 'Investment', 'Legal', 'Market Analysis', 'Lifestyle']
 
 export default function BlogPage() {
+  const { language, tr } = useLanguage()
+  const copy = language === 'fr'
+    ? {
+        eyebrow: 'Actualites et conseils',
+        title: 'Analyses du marche',
+        desc: 'Restez informe avec les tendances du marche et les conseils d’experts sur l’investissement foncier de luxe a Maurice.',
+        all: 'Tous',
+        featured: 'En vedette',
+        minRead: 'min de lecture',
+        loadMore: 'Charger plus d’articles',
+        stay: 'Restez informe',
+        newsletter: 'Abonnez-vous a notre newsletter',
+        newsletterDesc: 'Recevez les dernieres analyses du marche et les proprietes exclusives dans votre boite mail.',
+        email: 'Entrez votre email',
+        subscribe: 'S’abonner',
+        locale: 'fr-FR',
+      }
+    : {
+        eyebrow: 'Insights & News',
+        title: 'Market Insights',
+        desc: 'Stay informed with the latest news, market trends, and expert insights on luxury land investment in Mauritius.',
+        all: 'All',
+        featured: 'Featured',
+        minRead: 'min read',
+        loadMore: 'Load More Articles',
+        stay: 'Stay Updated',
+        newsletter: 'Subscribe to Our Newsletter',
+        newsletterDesc: 'Get the latest market insights and exclusive property listings delivered to your inbox.',
+        email: 'Enter your email',
+        subscribe: 'Subscribe',
+        locale: 'en-US',
+      }
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
@@ -25,14 +58,13 @@ export default function BlogPage() {
             className="text-center"
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              Insights & News
+              {copy.eyebrow}
             </p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-foreground mb-6">
-              Market Insights
+              {copy.title}
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Stay informed with the latest news, market trends, and expert insights 
-              on luxury land investment in Mauritius.
+              {copy.desc}
             </p>
           </motion.div>
         </div>
@@ -51,7 +83,7 @@ export default function BlogPage() {
                     : 'border border-border text-foreground hover:border-gold hover:text-gold'
                 }`}
               >
-                {category}
+                {category === 'All' ? copy.all : tr(category)}
               </button>
             ))}
           </div>
@@ -74,22 +106,22 @@ export default function BlogPage() {
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <Image
                       src={blogPosts[0].image}
-                      alt={blogPosts[0].title}
+                      alt={tr(blogPosts[0].title)}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 bg-gold text-background text-xs tracking-wider uppercase">
-                        Featured
+                        {copy.featured}
                       </span>
                     </div>
                   </div>
                   <div>
                     <div className="flex items-center gap-4 text-muted-foreground text-sm mb-4">
-                      <span className="text-gold">{blogPosts[0].category}</span>
+                      <span className="text-gold">{tr(blogPosts[0].category)}</span>
                       <span className="flex items-center gap-1">
                         <Calendar className="w-4 h-4" />
-                        {new Date(blogPosts[0].publishedAt).toLocaleDateString('en-US', {
+                        {new Date(blogPosts[0].publishedAt).toLocaleDateString(copy.locale, {
                           month: 'long',
                           day: 'numeric',
                           year: 'numeric',
@@ -97,14 +129,14 @@ export default function BlogPage() {
                       </span>
                       <span className="flex items-center gap-1">
                         <Clock className="w-4 h-4" />
-                        {blogPosts[0].readTime} min read
+                        {blogPosts[0].readTime} {copy.minRead}
                       </span>
                     </div>
                     <h2 className="text-2xl sm:text-3xl font-serif text-foreground mb-4 group-hover:text-gold transition-colors">
-                      {blogPosts[0].title}
+                      {tr(blogPosts[0].title)}
                     </h2>
                     <p className="text-muted-foreground mb-6 leading-relaxed">
-                      {blogPosts[0].excerpt}
+                      {tr(blogPosts[0].excerpt)}
                     </p>
                     <div className="flex items-center gap-4">
                       <div className="relative w-10 h-10 rounded-full overflow-hidden">
@@ -117,7 +149,7 @@ export default function BlogPage() {
                       </div>
                       <div>
                         <p className="text-foreground text-sm">{blogPosts[0].author.name}</p>
-                        <p className="text-muted-foreground text-xs">{blogPosts[0].author.role}</p>
+                        <p className="text-muted-foreground text-xs">{tr(blogPosts[0].author.role)}</p>
                       </div>
                     </div>
                   </div>
@@ -139,23 +171,23 @@ export default function BlogPage() {
                   <div className="relative aspect-[16/10] overflow-hidden mb-6">
                     <Image
                       src={post.image}
-                      alt={post.title}
+                      alt={tr(post.title)}
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
                   <div className="flex items-center gap-4 text-muted-foreground text-xs mb-3">
-                    <span className="text-gold">{post.category}</span>
+                    <span className="text-gold">{tr(post.category)}</span>
                     <span className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />
-                      {post.readTime} min read
+                      {post.readTime} {copy.minRead}
                     </span>
                   </div>
                   <h3 className="text-xl font-serif text-foreground mb-3 group-hover:text-gold transition-colors line-clamp-2">
-                    {post.title}
+                    {tr(post.title)}
                   </h3>
                   <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                    {post.excerpt}
+                    {tr(post.excerpt)}
                   </p>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
@@ -170,7 +202,7 @@ export default function BlogPage() {
                       <span className="text-foreground text-sm">{post.author.name}</span>
                     </div>
                     <span className="text-muted-foreground text-xs">
-                      {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                      {new Date(post.publishedAt).toLocaleDateString(copy.locale, {
                         month: 'short',
                         day: 'numeric',
                       })}
@@ -184,7 +216,7 @@ export default function BlogPage() {
           {/* Load More */}
           <div className="text-center mt-16">
             <button className="inline-flex items-center gap-2 px-8 py-4 border border-border text-foreground hover:border-gold hover:text-gold transition-colors">
-              <span className="tracking-wider uppercase text-sm">Load More Articles</span>
+              <span className="tracking-wider uppercase text-sm">{copy.loadMore}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -201,26 +233,25 @@ export default function BlogPage() {
             transition={{ duration: 0.6 }}
           >
             <p className="text-gold text-sm tracking-[0.3em] uppercase mb-4">
-              Stay Updated
+              {copy.stay}
             </p>
             <h2 className="text-3xl sm:text-4xl font-serif text-foreground mb-4">
-              Subscribe to Our Newsletter
+              {copy.newsletter}
             </h2>
             <p className="text-muted-foreground mb-8">
-              Get the latest market insights and exclusive property listings 
-              delivered to your inbox.
+              {copy.newsletterDesc}
             </p>
             <form className="flex flex-col sm:flex-row gap-4">
               <input
                 type="email"
-                placeholder="Enter your email"
+                placeholder={copy.email}
                 className="flex-1 bg-input border border-border px-6 py-4 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-gold"
               />
               <button
                 type="submit"
                 className="px-8 py-4 bg-gold text-background font-medium tracking-wider uppercase hover:bg-gold-light transition-colors"
               >
-                Subscribe
+                {copy.subscribe}
               </button>
             </form>
           </motion.div>

@@ -29,6 +29,17 @@ export interface Land {
   updatedAt: string
 }
 
+export interface Opportunity {
+  id: string
+  title: string
+  location: string
+  size: string
+  price: string
+  image: string
+  images?: string[]
+  tags: string[]
+}
+
 export interface BlogPost {
   id: string
   title: string

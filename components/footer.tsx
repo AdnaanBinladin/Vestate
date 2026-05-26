@@ -1,31 +1,35 @@
 'use client'
 
+import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { MapPin, Phone, Mail, ArrowUp } from 'lucide-react'
+import { useLanguage } from '@/components/language-provider'
 
 const footerLinks = {
   explore: [
-    { label: 'Land Portfolio', href: '/lands' },
-    { label: 'Featured Properties', href: '/lands?featured=true' },
-    { label: 'Investment Guide', href: '/investment' },
-    { label: 'Market Insights', href: '/blog' },
+    { labelKey: 'nav.portfolio', href: '/lands' },
+    { labelKey: 'footer.featured', href: '/lands?featured=true' },
+    { labelKey: 'footer.investmentGuide', href: '/investment' },
+    { labelKey: 'footer.marketInsights', href: '/blog' },
   ],
   company: [
-    { label: 'About Us', href: '/about' },
-    { label: 'Our Team', href: '/about#team' },
-    { label: 'Careers', href: '/careers' },
-    { label: 'Press', href: '/press' },
+    { labelKey: 'footer.aboutUs', href: '/about' },
+    { labelKey: 'footer.ourTeam', href: '/about#team' },
+    { labelKey: 'footer.careers', href: '/careers' },
+    { labelKey: 'footer.press', href: '/press' },
   ],
   support: [
-    { label: 'Contact Us', href: '/contact' },
-    { label: 'FAQs', href: '/faqs' },
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Terms of Service', href: '/terms' },
+    { labelKey: 'footer.contactUs', href: '/contact' },
+    { labelKey: 'footer.faqs', href: '/faqs' },
+    { labelKey: 'footer.privacy', href: '/privacy' },
+    { labelKey: 'footer.terms', href: '/terms' },
   ],
-}
+} as const
 
 export function Footer() {
+  const { t, tr } = useLanguage()
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -38,13 +42,16 @@ export function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-6">
-              <span className="text-3xl font-serif tracking-wider text-foreground">
-                VERSATE
-              </span>
+              <Image
+                src="/brand/vestate-properties-logo.png"
+                alt="Vestate Properties"
+                width={376}
+                height={120}
+                className="h-24 w-auto object-contain"
+              />
             </Link>
             <p className="text-muted-foreground leading-relaxed mb-8 max-w-md">
-              Your premier destination for luxury land investment in Mauritius. 
-              Discover exceptional plots in the world&apos;s most prestigious locations.
+              {t('footer.description')}
             </p>
             <div className="flex flex-col gap-4">
               <a
@@ -55,15 +62,15 @@ export function Footer() {
                 <span>+230 555 5555</span>
               </a>
               <a
-                href="mailto:contact@versate.mu"
+                href="mailto:contact@vestate.mu"
                 className="flex items-center gap-3 text-foreground/80 hover:text-gold transition-colors"
               >
                 <Mail className="w-5 h-5 text-gold" />
-                <span>contact@versate.mu</span>
+                <span>contact@vestate.mu</span>
               </a>
               <div className="flex items-start gap-3 text-foreground/80">
                 <MapPin className="w-5 h-5 text-gold flex-shrink-0 mt-1" />
-                <span>Royal Road, Grand Baie<br />Mauritius</span>
+                <span>Royal Road, Grand Baie<br />{tr('Mauritius')}</span>
               </div>
             </div>
           </div>
@@ -71,7 +78,7 @@ export function Footer() {
           {/* Links Columns */}
           <div>
             <h4 className="text-sm font-medium tracking-wider uppercase text-foreground mb-6">
-              Explore
+              {t('footer.explore')}
             </h4>
             <ul className="space-y-4">
               {footerLinks.explore.map((link) => (
@@ -80,7 +87,7 @@ export function Footer() {
                     href={link.href}
                     className="text-muted-foreground hover:text-gold transition-colors duration-300"
                   >
-                    {link.label}
+                  {t(link.labelKey)}
                   </Link>
                 </li>
               ))}
@@ -89,7 +96,7 @@ export function Footer() {
 
           <div>
             <h4 className="text-sm font-medium tracking-wider uppercase text-foreground mb-6">
-              Company
+              {t('footer.company')}
             </h4>
             <ul className="space-y-4">
               {footerLinks.company.map((link) => (
@@ -98,7 +105,7 @@ export function Footer() {
                     href={link.href}
                     className="text-muted-foreground hover:text-gold transition-colors duration-300"
                   >
-                    {link.label}
+                  {t(link.labelKey)}
                   </Link>
                 </li>
               ))}
@@ -107,7 +114,7 @@ export function Footer() {
 
           <div>
             <h4 className="text-sm font-medium tracking-wider uppercase text-foreground mb-6">
-              Support
+              {t('footer.support')}
             </h4>
             <ul className="space-y-4">
               {footerLinks.support.map((link) => (
@@ -116,7 +123,7 @@ export function Footer() {
                     href={link.href}
                     className="text-muted-foreground hover:text-gold transition-colors duration-300"
                   >
-                    {link.label}
+                  {t(link.labelKey)}
                   </Link>
                 </li>
               ))}
@@ -130,14 +137,14 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-muted-foreground">
-              &copy; {new Date().getFullYear()} Versate Properties. All rights reserved.
+              &copy; {new Date().getFullYear()} Vestate Properties. {t('footer.rights')}
             </p>
             <motion.button
               whileHover={{ y: -2 }}
               onClick={scrollToTop}
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-gold transition-colors"
             >
-              <span>Back to top</span>
+              <span>{t('footer.backToTop')}</span>
               <ArrowUp className="w-4 h-4" />
             </motion.button>
           </div>
