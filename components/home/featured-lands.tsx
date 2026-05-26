@@ -319,6 +319,10 @@ interface FeaturedLandsProps {
   lands: Land[]
 }
 
+function mobileFeaturedCardClassName(index: number) {
+  return cn(index > 0 && 'hidden lg:block')
+}
+
 export function FeaturedLands({ lands }: FeaturedLandsProps) {
   const { t } = useLanguage()
   const ref = useRef(null)
@@ -359,7 +363,9 @@ export function FeaturedLands({ lands }: FeaturedLandsProps) {
         {/* Land Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {featuredLands.map((land, index) => (
-            <LandCard key={land.id} land={land} index={index} />
+            <div key={land.id} className={mobileFeaturedCardClassName(index)}>
+              <LandCard land={land} index={index} />
+            </div>
           ))}
         </div>
 
@@ -390,7 +396,9 @@ export function FeaturedLands({ lands }: FeaturedLandsProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {agriculturalLandSales.slice(0, 3).map((opportunity, index) => (
-            <OpportunityCard key={opportunity.title} opportunity={opportunity} index={index} />
+            <div key={opportunity.title} className={mobileFeaturedCardClassName(index)}>
+              <OpportunityCard opportunity={opportunity} index={index} />
+            </div>
           ))}
         </div>
 
@@ -420,7 +428,9 @@ export function FeaturedLands({ lands }: FeaturedLandsProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {houseRentals.slice(0, 3).map((opportunity, index) => (
-            <OpportunityCard key={opportunity.title} opportunity={opportunity} index={index} />
+            <div key={opportunity.title} className={mobileFeaturedCardClassName(index)}>
+              <OpportunityCard opportunity={opportunity} index={index} />
+            </div>
           ))}
         </div>
 
@@ -450,7 +460,9 @@ export function FeaturedLands({ lands }: FeaturedLandsProps) {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {hotelDevelopments.slice(0, 3).map((opportunity, index) => (
-            <OpportunityCard key={opportunity.title} opportunity={opportunity} index={index} />
+            <div key={opportunity.title} className={mobileFeaturedCardClassName(index)}>
+              <OpportunityCard opportunity={opportunity} index={index} />
+            </div>
           ))}
         </div>
 
