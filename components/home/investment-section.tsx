@@ -97,6 +97,7 @@ export function InvestmentSection() {
                 src="https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=800&q=80"
                 alt="Mauritius aerial view"
                 fill
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />

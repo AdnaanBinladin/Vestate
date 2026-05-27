@@ -21,7 +21,7 @@ export function HeroSection() {
           loop
           playsInline
           className="w-full h-full object-cover"
-          poster="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1920&q=80"
+          poster="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=80"
         >
           <source
             src="https://videos.pexels.com/video-files/3571264/3571264-uhd_2560_1440_30fps.mp4"

@@ -185,6 +185,8 @@ export default function LandDetailPage({ params }: PageProps) {
                 src={land.images[0]}
                 alt={tr(land.title)}
                 fill
+                priority
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
@@ -225,6 +227,7 @@ export default function LandDetailPage({ params }: PageProps) {
                     src={image}
                     alt={`${tr(land.title)} - ${index + 2}`}
                     fill
+                    sizes="(min-width: 1024px) 25vw, 50vw"
                     className="object-cover"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors" />

@@ -308,6 +308,8 @@ export default function InvestmentPage() {
             src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1920&q=80"
             alt={copy.heroAlt}
             fill
+            priority
+            sizes="100vw"
             className="object-cover"
           />
           <div className="absolute inset-0 bg-black/70" />
