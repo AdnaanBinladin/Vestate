@@ -61,6 +61,7 @@ export function LifestyleSection() {
                   src={image.src}
                   alt={image.alt}
                   fill
+                  sizes="(min-width: 1024px) 25vw, 50vw"
                   className="object-cover hover:scale-105 transition-transform duration-700"
                 />
               </motion.div>

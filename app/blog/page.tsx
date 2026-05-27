@@ -108,6 +108,7 @@ export default function BlogPage() {
                       src={blogPosts[0].image}
                       alt={tr(blogPosts[0].title)}
                       fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute top-4 left-4">
@@ -173,6 +174,7 @@ export default function BlogPage() {
                       src={post.image}
                       alt={tr(post.title)}
                       fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
